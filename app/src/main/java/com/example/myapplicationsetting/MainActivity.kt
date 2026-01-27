@@ -20,11 +20,15 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AlertDialog
@@ -90,7 +94,7 @@ private enum class SettingsDestination(
     LocationAccuracy(
         buttonText = "定位精確度",
         dialogTitle = "需要到系統設定調整定位精確度",
-        dialogMessage = "已無法再次請求位置權限，請到系統設定頁調整定位精確度。"
+        dialogMessage = "已無法顯示系統對話框，請到系統設定頁調整定位精確度。"
     )
 }
 
@@ -208,6 +212,26 @@ fun SettingsEntryScreen() {
         )
     }
 
+    fun requestLocationAccuracy() {
+        pendingDestination = SettingsDestination.LocationAccuracy
+        val currentAccuracy = resolveAccuracyState(context)
+        if (currentAccuracy == AccuracyState.Enabled) {
+            // Already enabled: go straight to system settings page.
+            openDestination(SettingsDestination.LocationAccuracy)
+            return
+        }
+        requestSystemLocationEnable(
+            activity = activity,
+            context = context,
+            launcher = locationSettingsLauncher,
+            onFallback = { showSettingsDialog = true },
+            onUpdated = {
+                refreshStatus()
+                pendingDestination = null
+            }
+        )
+    }
+
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
@@ -244,7 +268,8 @@ fun SettingsEntryScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(24.dp),
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
@@ -282,13 +307,7 @@ fun SettingsEntryScreen() {
                 Text(text = "請求：開啟系統定位服務")
             }
             Button(
-                onClick = {
-                    handleButtonClick(
-                        destination = SettingsDestination.LocationAccuracy,
-                        openOnGrant = false,
-                        openIfAlreadyGranted = true
-                    )
-                },
+                onClick = { requestLocationAccuracy() },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -314,6 +333,7 @@ fun SettingsEntryScreen() {
             ) {
                 Text(text = "前往：位置權限（App）")
             }
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
