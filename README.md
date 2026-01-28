@@ -18,10 +18,8 @@
 
 ## Screenshots
 以下為 Android OS 36 最新截圖：
-![Preview](docs/screenshots/Screenshot_20260128_110900.png)
-![Preview](docs/screenshots/Screenshot_20260128_112039.png)
-![Preview](docs/screenshots/Screenshot_20260128_112053.png)
-![Preview](docs/screenshots/Screenshot_20260128_112148.png)
+
+<image width=250 src="docs/screenshots/Screenshot_20260128_112039.png"/><image width=250 src="docs/screenshots/Screenshot_20260128_112053.png"/><image width=250 src="docs/screenshots/Screenshot_20260128_112148.png"/>
 
 ## 使用流程（Demo Flow）
 1. 進入主畫面後顯示三種狀態：位置服務（系統）、高精準度定位、位置權限（App）。
@@ -44,8 +42,8 @@
 ## 高精準度定位說明
 結論：高精準度定位不是必須，但會影響定位品質與可用性。
 - 系統定位服務關閉時，無法取得定位。
-- 高精準度關閉時仍可能取得定位，但精準度較差、定位時間較久，室內更容易失敗。
-- App 端要取得高精準度定位，需有 `ACCESS_FINE_LOCATION`；高精準度屬於系統層提升品質的設定，不是必備流程。
+- 高精準度關閉時仍可能取得定位，但精準度較差、定位時間較久，室內更容易失敗。(高精準度屬於系統層提升品質的設定，不是必備流程)
+- App 端要取得高精準度定位，需有 `ACCESS_FINE_LOCATION`。 
 
 ## 高精準度定位開發流程建議
 1. 先向使用者說明使用情境與必要性，再在需要時才請求位置權限。
