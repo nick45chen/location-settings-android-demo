@@ -87,32 +87,32 @@ private enum class SettingsDestination(
     val dialogMessage: String
 ) {
     AppLocationPermission(
-        buttonText = "位置資訊權限",
-        dialogTitle = "需要到系統設定調整權限",
-        dialogMessage = "已無法再次請求位置權限，請到系統設定頁手動開啟。"
+        buttonText = "位置權限（App）",
+        dialogTitle = "請到系統設定開啟位置權限",
+        dialogMessage = "已無法再次請求位置權限，請至系統設定頁手動開啟。"
     ),
     LocationAccuracy(
-        buttonText = "定位精確度",
-        dialogTitle = "需要到系統設定調整定位精確度",
-        dialogMessage = "已無法顯示系統對話框，請到系統設定頁調整定位精確度。"
+        buttonText = "高精準度定位",
+        dialogTitle = "請到系統設定調整高精準度定位",
+        dialogMessage = "無法顯示系統對話框，請至系統設定頁調整高精準度定位。"
     )
 }
 
 private enum class PermissionState(val label: String) {
-    Fine("已取得（精準）"),
-    Coarse("已取得（概略）"),
-    Denied("未取得")
+    Fine("已授予（精準）"),
+    Coarse("已授予（概略）"),
+    Denied("未授予")
 }
 
 private enum class LocationServiceState(val label: String) {
-    Enabled("已啟用"),
-    Disabled("未啟用"),
+    Enabled("已開啟"),
+    Disabled("已關閉"),
     Unknown("未知")
 }
 
 private enum class AccuracyState(val label: String) {
-    Enabled("已啟用"),
-    Disabled("未啟用"),
+    Enabled("已開啟"),
+    Disabled("已關閉"),
     Unknown("未知")
 }
 
@@ -214,6 +214,11 @@ fun SettingsEntryScreen() {
 
     fun requestLocationAccuracy() {
         pendingDestination = SettingsDestination.LocationAccuracy
+        if (!hasAnyLocationPermission(context)) {
+            // Without runtime permission, SettingsClient may no-op on Android 9.
+            openDestination(SettingsDestination.LocationAccuracy)
+            return
+        }
         val currentAccuracy = resolveAccuracyState(context)
         if (currentAccuracy == AccuracyState.Enabled) {
             // Already enabled: go straight to system settings page.
@@ -257,7 +262,7 @@ fun SettingsEntryScreen() {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = "設定頁入口") },
+                title = { Text(text = "設定項目") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
@@ -273,26 +278,26 @@ fun SettingsEntryScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "請選擇要前往的設定頁",
+                text = "請選擇要調整的設定",
                 style = MaterialTheme.typography.titleMedium
             )
             StatusCard(
-                title = "系統定位服務",
+                title = "位置服務（系統）",
                 value = locationServiceState.label,
                 color = locationServiceState.toStatusColor()
             )
             StatusCard(
-                title = "最高精準度",
+                title = "高精準度定位",
                 value = accuracyState.label,
                 color = accuracyState.toStatusColor()
             )
             StatusCard(
-                title = "位置權限",
+                title = "位置權限（App）",
                 value = permissionState.label,
                 color = permissionState.toStatusColor()
             )
             Text(
-                text = "系統層設定",
+                text = "系統設定",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -304,7 +309,7 @@ fun SettingsEntryScreen() {
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             ) {
-                Text(text = "請求：開啟系統定位服務")
+                Text(text = "開啟位置服務（系統）")
             }
             Button(
                 onClick = { requestLocationAccuracy() },
@@ -314,10 +319,10 @@ fun SettingsEntryScreen() {
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             ) {
-                Text(text = "前往：定位精確度（系統）")
+                Text(text = "調整高精準度定位")
             }
             Text(
-                text = "App 層設定",
+                text = "應用程式設定",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -331,7 +336,7 @@ fun SettingsEntryScreen() {
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "前往：位置權限（App）")
+                Text(text = "管理位置權限")
             }
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -343,15 +348,15 @@ private fun SettingsDialog(
     destination: SettingsDestination?,
     onDismiss: () -> Unit
 ) {
-    val title = destination?.dialogTitle ?: "需要到系統設定調整"
-    val message = destination?.dialogMessage ?: "已無法再次請求權限，請到系統設定頁手動開啟。"
+    val title = destination?.dialogTitle ?: "請到系統設定調整"
+    val message = destination?.dialogMessage ?: "已無法再次請求權限，請至系統設定頁手動開啟。"
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(text = title) },
         text = { Text(text = message) },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = "關閉並前往設定")
+                Text(text = "前往設定")
             }
         }
     )
@@ -427,6 +432,18 @@ private fun resolvePermissionState(context: Context): PermissionState {
         Manifest.permission.ACCESS_COARSE_LOCATION
     ) == PackageManager.PERMISSION_GRANTED
     return if (coarseGranted) PermissionState.Coarse else PermissionState.Denied
+}
+
+private fun hasAnyLocationPermission(context: Context): Boolean {
+    val fineGranted = ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+    val coarseGranted = ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+    return fineGranted || coarseGranted
 }
 
 private fun resolveLocationServiceState(context: Context): LocationServiceState {

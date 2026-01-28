@@ -1,0 +1,37 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SettingTestApp preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1020" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#EEF2FF" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)" />
+
+  <rect x="220" y="70" width="760" height="660" rx="54" fill="#0F172A" stroke="#1F2937" stroke-width="4" />
+  <rect x="260" y="120" width="680" height="570" rx="36" fill="url(#screen)" />
+
+  <rect x="320" y="170" width="560" height="52" rx="16" fill="#E2E8F0" />
+  <rect x="320" y="240" width="560" height="88" rx="20" fill="#E0F2FE" />
+  <rect x="320" y="348" width="560" height="88" rx="20" fill="#DCFCE7" />
+  <rect x="320" y="456" width="560" height="88" rx="20" fill="#FEE2E2" />
+
+  <rect x="320" y="570" width="560" height="54" rx="16" fill="#DBEAFE" />
+
+  <circle cx="352" cy="284" r="8" fill="#2563EB" />
+  <circle cx="352" cy="392" r="8" fill="#16A34A" />
+  <circle cx="352" cy="500" r="8" fill="#DC2626" />
+
+  <text x="320" y="155" fill="#94A3B8" font-size="18" font-family="SF Pro Display, Segoe UI, Roboto, Arial, sans-serif">Settings Entry</text>
+  <text x="352" y="286" fill="#0F172A" font-size="20" font-weight="600" font-family="SF Pro Display, Segoe UI, Roboto, Arial, sans-serif">Location Service</text>
+  <text x="352" y="394" fill="#0F172A" font-size="20" font-weight="600" font-family="SF Pro Display, Segoe UI, Roboto, Arial, sans-serif">Accuracy</text>
+  <text x="352" y="502" fill="#0F172A" font-size="20" font-weight="600" font-family="SF Pro Display, Segoe UI, Roboto, Arial, sans-serif">App Permission</text>
+
+  <text x="320" y="635" fill="#1D4ED8" font-size="18" font-weight="600" font-family="SF Pro Display, Segoe UI, Roboto, Arial, sans-serif">Request: Enable system location service</text>
+
+  <text x="600" y="760" text-anchor="middle" fill="#94A3B8" font-size="16" font-family="SF Pro Display, Segoe UI, Roboto, Arial, sans-serif">Replace with real screenshots</text>
+</svg>
