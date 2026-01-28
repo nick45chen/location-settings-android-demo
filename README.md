@@ -18,10 +18,8 @@
 
 ## Screenshots
 以下為 Android OS 36 最新截圖：
-![Preview](docs/screenshots/Screenshot_20260128_110900.png)
-![Preview](docs/screenshots/Screenshot_20260128_112039.png)
-![Preview](docs/screenshots/Screenshot_20260128_112053.png)
-![Preview](docs/screenshots/Screenshot_20260128_112148.png)
+
+<image width=250 src="docs/screenshots/Screenshot_20260128_112039.png"/><image width=250 src="docs/screenshots/Screenshot_20260128_112053.png"/><image width=250 src="docs/screenshots/Screenshot_20260128_112148.png"/>
 
 ## 使用流程（Demo Flow）
 1. 進入主畫面後顯示三種狀態：位置服務（系統）、高精準度定位、位置權限（App）。
