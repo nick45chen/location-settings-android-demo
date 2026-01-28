@@ -55,7 +55,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
@@ -242,6 +242,7 @@ fun SettingsEntryScreen() {
     DisposableEffect(lifecycleOwner, context) {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
+                if (context == null) return
                 refreshStatus()
             }
         }
@@ -339,7 +340,7 @@ fun SettingsEntryScreen() {
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             ) {
-                Text(text = "調整高精準度定位")
+                Text(text = SettingsDestination.LocationAccuracy.buttonText)
             }
             Text(
                 text = "應用程式設定",
@@ -356,7 +357,7 @@ fun SettingsEntryScreen() {
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "管理位置權限")
+                Text(text = SettingsDestination.AppLocationPermission.buttonText)
             }
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -475,7 +476,7 @@ private fun resolveLocationServiceState(context: Context): LocationServiceState 
         } else {
             LocationServiceState.Disabled
         }
-    } catch (securityException: SecurityException) {
+    } catch (_: SecurityException) {
         LocationServiceState.Unknown
     }
 }
@@ -539,7 +540,7 @@ private fun resolveAccuracyState(context: Context): AccuracyState {
             val networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
             if (gpsEnabled && networkEnabled) AccuracyState.Enabled else AccuracyState.Disabled
         }
-    } catch (securityException: SecurityException) {
+    } catch (_: SecurityException) {
         AccuracyState.Unknown
     }
 }
