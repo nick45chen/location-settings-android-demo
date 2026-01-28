@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapplicationsetting"
+    namespace = "com.example.locationsetting"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.myapplicationsetting"
+        applicationId = "com.example.locationsetting"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

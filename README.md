@@ -1,6 +1,6 @@
-![SettingTestApp banner](docs/banner.svg)
+![Location Settings Demo banner](docs/banner.svg)
 
-# SettingTestApp
+# Location Settings Demo
 高精準度定位權限前置引導示範 App
 
 這是一個示範 App，用來引導使用者在使用「高精準度位置」前完成必要設定（截圖為 Android OS 36）：
@@ -37,6 +37,7 @@
 
 ## 權限說明
 - `android.permission.ACCESS_FINE_LOCATION`
+- `android.permission.ACCESS_COARSE_LOCATION`
 
 本 App 僅示範「權限與設定導流」，不會擷取或上傳定位資料。
 
@@ -56,7 +57,7 @@
 
 ## 專案結構
 - `app/` Android app module
-- `app/src/main/java/com/example/myapplicationsetting/` 主要程式碼（`MainActivity.kt`）
+- `app/src/main/java/com/example/locationsetting/` 主要程式碼（`MainActivity.kt`）
 - `app/src/main/res/` 資源
 - `app/src/test/` 單元測試
 - `app/src/androidTest/` 儀器測試

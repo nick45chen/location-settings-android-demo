@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SettingTestApp"
+rootProject.name = "LocationSettingsDemo"
 include(":app")

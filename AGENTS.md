@@ -3,8 +3,8 @@
 ## Project Structure & Module Organization
 This is a single-module Android app using Kotlin and Jetpack Compose.
 - `app/`: Android application module.
-- `app/src/main/java/com/example/myapplicationsetting/`: Kotlin source (entry in `MainActivity.kt`).
-- `app/src/main/java/com/example/myapplicationsetting/ui/theme/`: Compose theming.
+- `app/src/main/java/com/example/locationsetting/`: Kotlin source (entry in `MainActivity.kt`).
+- `app/src/main/java/com/example/locationsetting/ui/theme/`: Compose theming.
 - `app/src/main/res/`: Resources (layouts are Compose-based, so UI assets live here).
 - `app/src/main/AndroidManifest.xml`: App manifest.
 - `app/src/test/`: JVM unit tests (JUnit).

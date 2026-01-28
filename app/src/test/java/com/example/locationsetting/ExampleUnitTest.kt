@@ -1,4 +1,4 @@
-package com.example.myapplicationsetting
+package com.example.locationsetting
 
 import org.junit.Test
 

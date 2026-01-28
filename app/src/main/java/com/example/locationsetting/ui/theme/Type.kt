@@ -1,4 +1,4 @@
-package com.example.myapplicationsetting.ui.theme
+package com.example.locationsetting.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

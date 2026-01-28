@@ -1,4 +1,4 @@
-package com.example.myapplicationsetting
+package com.example.locationsetting
 
 import android.Manifest
 import android.app.Activity
@@ -69,14 +69,14 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.Priority
-import com.example.myapplicationsetting.ui.theme.SettingTestAppTheme
+import com.example.locationsetting.ui.theme.LocationSettingsDemoTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SettingTestAppTheme {
+            LocationSettingsDemoTheme {
                 SettingsEntryScreen()
             }
         }
@@ -577,7 +577,7 @@ private fun Context.findActivity(): Activity? {
 @Preview(showBackground = true)
 @Composable
 fun SettingsEntryScreenPreview() {
-    SettingTestAppTheme {
+    LocationSettingsDemoTheme {
         SettingsEntryScreen()
     }
 }

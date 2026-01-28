@@ -1,4 +1,4 @@
-package com.example.myapplicationsetting.ui.theme
+package com.example.locationsetting.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
